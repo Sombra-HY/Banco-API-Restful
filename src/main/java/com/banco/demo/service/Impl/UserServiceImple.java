@@ -15,7 +15,7 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public User finbyId(Long id) {
+    public User findbyId(Long id) {
         return userRep.findById(id)
                 .orElseThrow(NoSuchElementException :: new);
     }
