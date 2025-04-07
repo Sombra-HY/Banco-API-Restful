@@ -1,14 +1,16 @@
 package com.banco.demo.service.Impl;
 
 import com.banco.demo.model.User;
+import com.banco.demo.exception.UserNotFindException;
 import com.banco.demo.repository.UserRepository;
 import com.banco.demo.service.UserService;
-import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImple implements UserService {
-    private UserRepository userRep;
+
+
+    private final UserRepository userRep;
 
     public UserServiceImple(UserRepository userRep) {
         this.userRep = userRep;
@@ -17,7 +19,7 @@ public class UserServiceImple implements UserService {
     @Override
     public User findbyId(Long id) {
         return userRep.findById(id)
-                .orElseThrow(NoSuchElementException :: new);
+                .orElseThrow(() -> new UserNotFindException("User not found with id: " + id));
     }
 
     @Override
